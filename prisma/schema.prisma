@@ -65,3 +65,13 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verification_tokens")
 }
+
+model Tab {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  userId      String   @map("user_id")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  data        Json?
+}

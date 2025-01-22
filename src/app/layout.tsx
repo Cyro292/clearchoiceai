@@ -1,7 +1,8 @@
 import "@/styles/globals.css";
 import SessionWrapper from "@/components/sessionWrapper";
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '@/lib/auth';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata = {
 	title: "ClearChoice AI",
@@ -22,6 +23,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body>
 				<SessionWrapper session={session}>{children}</SessionWrapper>
+				<Toaster />
 			</body>
 		</html>
 	);

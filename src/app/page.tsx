@@ -7,6 +7,7 @@ import PricingSection from "@/app/components/PricingSection";
 import ReviewSection from "@/app/components/ReviewSection";
 import VideoSection from "@/app/components/VideoSection";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export default function Home() {
 	return (
@@ -19,12 +20,11 @@ export default function Home() {
 				<p className="text-lg mb-8 text-center">
 					We're glad to have you here. Explore our features and get started!
 				</p>
-				<Button
-					className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-white text-blue-600 hover:bg-gray-200 text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-					onClick={() => alert("Get started with ClearChoice AI!")}
-				>
-					Get Started
-				</Button>
+				<Link href="/product" legacyBehavior passHref>
+					<Button className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-white text-blue-600 hover:bg-gray-200 text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
+						Get Started
+					</Button>
+				</Link>
 			</div>
 
 			<ProductFeatures />

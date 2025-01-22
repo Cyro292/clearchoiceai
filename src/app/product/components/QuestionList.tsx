@@ -7,26 +7,35 @@ import { Dialog } from "@/components/ui/dialog";
 import QuestionForm from "./QuestionForm";
 import { Question } from "@/types/Question";
 
-const ItemList: React.FC<{ className?: string }> = ({ className }) => {
-	const [items, setItems] = useState<Question[]>([]);
+interface ItemListProps {
+	className?: string;
+	items: Question[];
+	onItemsChange: (updated: Question[]) => void;
+}
+
+const ItemList: React.FC<ItemListProps> = ({
+	className,
+	items = [],
+	onItemsChange = () => {},
+}) => {
 	const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 	const [editingIndex, setEditingIndex] = useState<number | null>(null);
-	const [formKey, setFormKey] = useState<number>(0); // Unique key for QuestionForm
+	const [formKey, setFormKey] = useState<number>(0);
 
 	const addItem = (question: Question) => {
-		setItems([...items, question]);
+		onItemsChange([...items, question]);
 		setIsDialogOpen(false);
 	};
 
 	const editItem = (index: number, question: Question) => {
 		const updatedItems = [...items];
 		updatedItems[index] = question;
-		setItems(updatedItems);
+		onItemsChange(updatedItems);
 		setIsDialogOpen(false);
 	};
 
 	const deleteItem = (index: number) => {
-		setItems(items.filter((_, i) => i !== index));
+		onItemsChange(items.filter((_, i) => i !== index));
 	};
 
 	const openAddDialog = () => {
