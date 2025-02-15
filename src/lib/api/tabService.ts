@@ -3,7 +3,10 @@ import { Tab } from "@/types/Tab";
 export async function saveTab(tabBody: Partial<Tab>): Promise<Tab> {
 	const body = JSON.stringify(tabBody);
 
-	const response = await fetch("/api/tab/save", {
+	const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+	const url = `${baseUrl}/tab/save`;
+
+	const response = await fetch(url, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: body,
@@ -15,7 +18,11 @@ export async function saveTab(tabBody: Partial<Tab>): Promise<Tab> {
 }
 
 export async function getTabById(id: string): Promise<Tab> {
-	const response = await fetch(`/api/tab/${id}`);
+	const encodedId = encodeURIComponent(id);
+	const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+	const url = `${baseUrl}/tab/${encodedId}`;
+
+	const response = await fetch(url);
 
 	if (!response.ok) throw new Error("Tab not found");
 
@@ -35,4 +42,21 @@ export async function getTabById(id: string): Promise<Tab> {
 	};
 
 	return tab;
+}
+
+export async function getTabList(userId: string): Promise<Tab[]> {
+	const encodedUserId = encodeURIComponent(userId);
+	const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+	const url = `${baseUrl}/tab/list/${encodedUserId}`;
+
+	const response = await fetch(url);
+
+	const body = await response.json();
+	return body.map((tab: any) => ({
+		id: tab.id,
+		title: tab.title,
+		userId: tab.userId,
+		description: tab.description,
+		updatedAt: tab.updatedAt,
+	}));
 }

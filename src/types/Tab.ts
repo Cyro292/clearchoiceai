@@ -9,4 +9,6 @@ export interface Tab {
 	urlInput: string;
 	fileInput: string;
 	questions: Question[];
+	updatedAt?: string;
+	createdAt?: string;
 }

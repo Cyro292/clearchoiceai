@@ -31,6 +31,22 @@ export async function createTab(input_tab: CreateTabInput) {
 	return tab;
 }
 
+export async function getTabList(userId: string) {
+	const tabs = await prisma.tab.findMany({
+		where: {
+			userId: userId,
+		},
+		select: {
+			id: true,
+			title: true,
+			userId: true,
+			description: true,
+		},
+	});
+
+	return tabs;
+}
+
 export async function getTabs(userId: string) {
 	const tabs = await prisma.tab.findMany({
 		where: {
